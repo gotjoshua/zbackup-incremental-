@@ -18,9 +18,5 @@ echo "$DATEDIR"
 
 # find all subdirectories | clean to basename | exclude . | loop
 find .  -maxdepth 1 -type d | xargs -i basename {} | grep -v '\.' |  while read -r eachdir ; do
-    echo "Processing $eachdir"
-    # check for a .backupignore file and pass it to tar if found
-    [[ -e $eachdir/.backupignore ]] && export EXCLUDE="--exclude-from=$eachdir/.backupignore" || export EXCLUDE=''
-    echo "sudo tar $EXCLUDE -vc $eachdir | zbackup --non-encrypted --silent backup $DATEDIR/$eachdir.zbtar"
-    sudo tar $EXCLUDE -vc $eachdir | zbackup --non-encrypted --silent backup $DATEDIR/$eachdir.zbtar
+    ./zdo.sh $eachdir $DATEDIR
 done
