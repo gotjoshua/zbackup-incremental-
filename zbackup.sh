@@ -17,6 +17,6 @@ mkdir -p $DATEDIR
 echo "$DATEDIR"
 
 # find all subdirectories | clean to basename | exclude . | loop
-find .  -maxdepth 1 -type d | xargs -i basename {} | grep -v '\.' |  while read -r eachdir ; do
+find -L . -maxdepth 1  | xargs -i basename {} | grep -v '\.' |  while read -r eachdir ; do
     ./zdo.sh $eachdir $DATEDIR
 done
